@@ -8,7 +8,7 @@ https://github.com/avensia-oss/ts-transform-instrument-react-components) or you 
 
 This transformer will essentially rewrite this:
 
-```
+```js
 import React from 'react';
 import SomeComponent from './SomeComponent';
 
@@ -17,7 +17,7 @@ export default (props: any) => <div><SomeComponent /></div>;
 
 To this:
 
-```
+```js
 import React from 'react';
 const SomeComponent = React.lazy(() => import('./SomeComponent'));
 
@@ -26,7 +26,7 @@ export default (props: any) => <div><SomeComponent /></div>;
 
 Note that it also works with named exports and not just default exports. Meaning it will turn this:
 
-```
+```js
 import React from 'react';
 import { SomeComponent } from './SomeComponent';
 
@@ -35,7 +35,7 @@ export default (props: any) => <div><SomeComponent /></div>;
 
 To this:
 
-```
+```js
 import React from 'react';
 const SomeComponent = React.lazy(() => import('./SomeComponent').then(m => ({default: m.SomeComponent})));
 
@@ -62,7 +62,7 @@ yarn add @avensia-oss/ts-transform-import-to-lazy-async-import
 
 It's possible to specify some other expression than `React.lazy` (since it currently doesn't support server rendering). If you want to use `@loadable` instead you can configure this transform with this options object:
 
-```
+```js
 getCustomTransformers: (program) => ({
   before: [importToLazyAsyncImport(program, {
     createComponentWrapperExpression: ts => {
@@ -84,7 +84,7 @@ getCustomTransformers: (program) => ({
 
 If you want to stick to the rules you can tell this transformer to only rewrite an import if it's a default import.
 
-```
+```js
 getCustomTransformers: (program) => ({
   before: [importToLazyAsyncImport(program, {
     onlyRewriteDefaultExports: true,
@@ -99,7 +99,7 @@ since in that case the original import statement won't be fully removed and the 
 behavior is that this transform can't know if some other tool (such as https://github.com/avensia-oss/ts-transform-export-const-folding) is able to remove the
 other imports.
 
-```
+```js
 getCustomTransformers: (program) => ({
   before: [importToLazyAsyncImport(program, {
     onlyRewriteIfImportCanBeRemoved: true,
@@ -112,7 +112,7 @@ getCustomTransformers: (program) => ({
 If you have a list of files you want to lazy load (like the result of https://github.com/avensia-oss/ts-transform-instrument-react-components) you can implement
 it like this:
 
-```
+```js
 import * as path from 'path';
 
 getCustomTransformers: (program) => ({
@@ -132,7 +132,7 @@ https://github.com/TypeStrong/ts-loader#getcustomtransformers-----before-transfo
 
 The default export of this module is a function which expects a `ts.Program` an returns a transformer function. Your config should look something like this:
 
-```
+```js
 const importToLazyAsyncImport = require('@avensia-oss/ts-transform-import-to-lazy-async-import');
 
 return {
