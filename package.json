@@ -1,6 +1,6 @@
 {
   "name": "@avensia-oss/ts-transform-import-to-lazy-async-import",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A TypeScript custom transformer that rewrites synchronously loaded React components to async, lazy loaded components",
   "main": "index.js",
   "types": "dist/src/index.d.ts",
