@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "A TypeScript custom transformer that rewrites synchronously loaded React components to async, lazy loaded components",
   "main": "index.js",
+  "types": "dist/src/index.d.ts",
   "keywords": [
     "TypeScript",
     "transform",
